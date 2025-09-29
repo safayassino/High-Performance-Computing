@@ -1,1 +1,8 @@
 blis/
+*.o
+*.out
+*.exe
+*.dat
+*.bin
+exercise2/*.o
+exercise2/*.out
