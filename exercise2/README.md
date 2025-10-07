@@ -1,5 +1,21 @@
-# information about exercise 2
-##shell files: contains 4 benchmark shell scripts: benchmark.sh (fixed cores, epyc), benchmark_thin.sh (fixed cores, thin), benchmark_matrix.sh (fixed matrix, epyc), benchmark_matrix_thin.sh (fixed matrix, thin)
-##sbatch files: four job sbatch files that call the past shell files while requesting adequate resources
-##fixed_cores_results: contains the data for the matrix scalability (fixed core)
-##fixed_matrix_results: contains the data for the core scalability (fixed matrix)
+# Exercise 2
+
+## Directory Structure
+
+### Shell Scripts
+Contains four benchmark shell scripts for different testing configurations:
+- `benchmark.sh` - Fixed core count benchmarks on EPYC nodes
+- `benchmark_thin.sh` - Fixed core count benchmarks on thin nodes
+- `benchmark_matrix.sh` - Fixed matrix size benchmarks on EPYC nodes
+- `benchmark_matrix_thin.sh` - Fixed matrix size benchmarks on thin nodes
+
+### SBATCH Files
+Four SLURM job submission scripts that execute the corresponding shell scripts with appropriate resource allocations.
+
+### Results Directories
+- `fixed_cores_results/` - Data from matrix scalability experiments (fixed core count, varying matrix size)
+- `fixed_matrix_results/` - Data from core scalability experiments (fixed matrix size, varying core count)
+
+### Source Files
+- `gemm.c` - Modified version of the provided `dgemm.c` code implementing matrix multiplication with optional CSV output for results
+- `gemm_numa.c` - NUMA-aware initialization implementation added after observing performance characteristics on EPYC nodes
