@@ -7,7 +7,7 @@ I implelemnted three scalability analysis: **OpenMP scalability** which I applie
 ### CODE FILES
 `game_of_life.h`: here  i make a header file containing data structures (the grid) and inline accessor functions for cell operations
 
-`game_of_life_serial.c`:here i do the first serial implementation with both ORDERED and STATIC evolution modes (that will be the baseline for our analysis),  I take in consideration the periodic boundaries
+`game_of_life_serial.c`:here i do the first serial implementation with both ORDERED and STATIC evolution modes (that will be the baseline for our analysis),  I take in consideration the periodic boundariesgit
 
 `game_of_life_mpi.c`:here I implement the MPI domain (row) decomposition, ghost row exchanges via MPI_Sendrecv, and hybrid MPI+OpenMP evolution function.
 
@@ -36,7 +36,9 @@ I implelemnted three scalability analysis: **OpenMP scalability** which I applie
 `validate_correctness.sh`:the sbatch file I used to run the validate.c code with the images
 
 ## Output Files
-`results_openmp.csv`:the data we get from the openMP scalability analysis
+`results_openmp.csv`:the data we get from the openMP scalability analysis on THIN node
+
+`results_openmp_epyc.csv`:the data we get from the openMP scalability analysis on EPYC node
 
 `results_strong_mpi.csv`:the data we get from the strong scalability analysis
 
