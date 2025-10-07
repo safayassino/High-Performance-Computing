@@ -7,7 +7,7 @@ I implelemnted three scalability analysis: **OpenMP scalability** which I applie
 ### CODE FILES
 `game_of_life.h`: here  i make a header file containing data structures (the grid) and inline accessor functions for cell operations
 
-`game_of_life_serial.c`:here i do the first serial implementation with both ORDERED and STATIC evolution modes (that will be the baseline for our analysis),  I take in consideration the periodic boundaries, PGM I/O (which I use to create png images, the glider example is mentioned in the report)
+`game_of_life_serial.c`:here i do the first serial implementation with both ORDERED and STATIC evolution modes (that will be the baseline for our analysis),  I take in consideration the periodic boundaries
 
 `game_of_life_mpi.c`:here I implement the MPI domain (row) decomposition, ghost row exchanges via MPI_Sendrecv, and hybrid MPI+OpenMP evolution function.
 
