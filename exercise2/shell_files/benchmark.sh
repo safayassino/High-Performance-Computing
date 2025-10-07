@@ -88,4 +88,4 @@ rm -f gemm_test
 echo "All benchmarks completed!"
 echo "Results saved in:"
 echo "  - openblas.csv"
-echo "  - blis.csv"
+echo "  - blis.csv"ne
