@@ -1,5 +1,6 @@
 # High Performance Computing - Final Report
 A project for HPC course-DSSC course-University of Trieste
+
 All the material related to this project can be found at https://github.com/Foundations-of-HPC/Foundations_of_HPC_2022/tree/main/Assignment).
 
 ## Repository Structure
