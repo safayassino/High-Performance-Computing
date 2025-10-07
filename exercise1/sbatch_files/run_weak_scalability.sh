@@ -8,6 +8,7 @@
 #SBATCH --time=02:00:00
 #SBATCH --partition=THIN
 
+rm grid_*.pgm #remove past grids to avoid rewriting
 module load openMPI/4.1.6
 
 cd $SLURM_SUBMIT_DIR

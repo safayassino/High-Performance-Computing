@@ -21,7 +21,7 @@ export OMP_NUM_THREADS=1           # here we disable OpenMP
 
 echo "study,rows,cols,steps,mode,mpi_procs,omp_threads,time" > results_weak.csv
 
-for nprocs in 1 2 4 8 12 16 24 48; do
+for nprocs in 1 2 4 8 12 16 24; do
     ROWS=${BASE_ROWS}
     COLS=$((BASE_COLS * nprocs))
     GRID_FILE="grid_weak_${nprocs}.pgm"

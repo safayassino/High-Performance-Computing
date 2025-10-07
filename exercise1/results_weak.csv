@@ -1,9 +1,0 @@
-study,rows,cols,steps,mode,mpi_procs,omp_threads,time
-mpi,8000,8000,50,static,1,1,48.082317
-mpi,8000,16000,50,static,2,1,48.307472
-mpi,8000,32000,50,static,4,1,48.510383
-mpi,8000,64000,50,static,8,1,48.688692
-mpi,8000,96000,50,static,12,1,49.354865
-mpi,8000,128000,50,static,16,1,49.602167
-mpi,8000,192000,50,static,24,1,49.566073
-mpi,8000,192000,50,static,24,1,49.566073
