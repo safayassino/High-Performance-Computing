@@ -1,29 +1,21 @@
 #!/bin/bash
 
-# Configuration for core scaling
 MATRIX_SIZE=10000
-CORE_COUNTS=(1 2 4 8 16 32 48 64)  # Different core counts to test
+CORE_COUNTS=(1 2 4 8 16 32 48 64)  # EPYC
 PRECISIONS=("float" "double")
 THREAD_BINDINGS=("spread" "close")
 LIBRARIES=("openblas" "blis")
 
-# BLIS path
 BLIS_PATH="/u/dssc/syassin/myblis"
 
 echo "Starting core scaling benchmarks on EPYC with matrix size ${MATRIX_SIZE}x${MATRIX_SIZE}x${MATRIX_SIZE}..."
 
-# Initialize CSV files with headers
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > openblas_matrix.csv
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > blis_matrix.csv
 
-# Loop through libraries
+# Loop through the configuraiton parameters to have their different combinations
 for LIBRARY in "${LIBRARIES[@]}"; do
-    
-    echo "========================================"
-    echo "Testing library: ${LIBRARY}"
-    echo "========================================"
-    
-    # Load appropriate module/library
+
     if [ "$LIBRARY" == "openblas" ]; then
         module load openBLAS/0.3.29-omp
         LIB_FLAG="-DOPENBLAS"
@@ -82,7 +74,6 @@ for LIBRARY in "${LIBRARIES[@]}"; do
     done
 done
 
-# Cleanup
 rm -f gemm_test
 
 echo "All core scaling benchmarks completed!"

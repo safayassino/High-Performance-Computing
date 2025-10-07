@@ -9,7 +9,6 @@
 #SBATCH --output=benchmark_thin_%j.out
 #SBATCH --error=benchmark_thin_%j.err
 
-# Set node type environment variable
 export NODE_TYPE=thin
 
 ./benchmark_thin.sh

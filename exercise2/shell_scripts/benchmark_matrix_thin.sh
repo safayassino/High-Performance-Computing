@@ -1,29 +1,21 @@
 #!/bin/bash
 
-# Configuration for core scaling on THIN
 MATRIX_SIZE=10000
-CORE_COUNTS=(1 2 4 6 8 10 12)  # THIN has 12 cores max
+CORE_COUNTS=(1 2 4 6 8 10 12) # THIN
 PRECISIONS=("float" "double")
 THREAD_BINDINGS=("spread" "close")
 LIBRARIES=("openblas" "blis")
 
-# BLIS path
 BLIS_PATH="/u/dssc/syassin/myblis"
 
 echo "Starting core scaling benchmarks on THIN with matrix size ${MATRIX_SIZE}x${MATRIX_SIZE}x${MATRIX_SIZE}..."
 
-# Initialize CSV files with headers
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > openblas_matrix_thin.csv
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > blis_matrix_thin.csv
 
-# Loop through libraries
+#here we loop across the configuration conditions
 for LIBRARY in "${LIBRARIES[@]}"; do
     
-    echo "========================================"
-    echo "Testing library: ${LIBRARY}"
-    echo "========================================"
-    
-    # Load appropriate module/library
     if [ "$LIBRARY" == "openblas" ]; then
         module load openBLAS/0.3.29-omp
         LIB_FLAG="-DOPENBLAS"
@@ -82,10 +74,5 @@ for LIBRARY in "${LIBRARIES[@]}"; do
     done
 done
 
-# Cleanup
-rm -f gemm_test
 
-echo "All core scaling benchmarks completed!"
-echo "Results saved in:"
-echo "  - openblas_matrix_thin.csv"
-echo "  - blis_matrix_thin.csv"
+rm -f gemm_test

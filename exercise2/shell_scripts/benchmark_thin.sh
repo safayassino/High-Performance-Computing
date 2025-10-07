@@ -1,27 +1,24 @@
 #!/bin/bash
-# Configuration for THIN nodes
+# THIN NODE
 CORES=12 
 MATRIX_SIZES=($(seq 2000 1000 20000))
 THREAD_BINDINGS=("spread" "close")
 LIBRARIES=("openblas" "blis")
 
-# BLIS path
 BLIS_PATH="/u/dssc/syassin/myblis"
 
 echo "Starting benchmarks on THIN with ${CORES} cores..."
 
-# Initialize CSV files with headers for THIN
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > openblas.csv
 echo "M,N,K,Time(s),GFLOPS,Precision,Binding,Cores" > blis.csv
 
-# Loop through libraries
+# We loop across the different configurations to have all the combinations
 for LIBRARY in "${LIBRARIES[@]}"; do
     
     echo "========================================"
     echo "Testing library: ${LIBRARY}"
     echo "========================================"
     
-    # Load appropriate module/library
     if [ "$LIBRARY" == "openblas" ]; then
         module load openBLAS/0.3.29-omp
         LIB_FLAG="-DOPENBLAS"
@@ -68,7 +65,6 @@ for LIBRARY in "${LIBRARIES[@]}"; do
                 export OMP_PLACES=threads
             fi
             
-            # Run for each matrix size (square matrices: M=N=K)
             for SIZE in "${MATRIX_SIZES[@]}"; do
                 echo "  Testing size: ${SIZE}x${SIZE}x${SIZE}"
                 ./gemm_test ${SIZE} ${SIZE} ${SIZE}
@@ -80,10 +76,5 @@ for LIBRARY in "${LIBRARIES[@]}"; do
     done
 done
 
-# Cleanup
-rm -f gemm_test
 
-echo "All benchmarks completed!"
-echo "Results saved in:"
-echo "  - openblas.csv"
-echo "  - blis.csv"
+rm -f gemm_test
