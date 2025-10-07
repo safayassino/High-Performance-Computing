@@ -4,5 +4,6 @@ blis/
 *.exe
 *.dat
 *.bin
+*.err
 exercise2/*.o
 exercise2/*.out
