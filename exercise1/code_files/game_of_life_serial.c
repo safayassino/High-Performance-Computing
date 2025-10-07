@@ -1,6 +1,6 @@
 #include "game_of_life.h"
 
-// Create and allocate grid
+
 Grid* create_grid(int rows, int cols) {
     Grid *grid = malloc(sizeof(Grid));
     grid->rows = rows;
@@ -9,13 +9,11 @@ Grid* create_grid(int rows, int cols) {
     return grid;
 }
 
-// Free grid memory
 void free_grid(Grid *grid) {
     free(grid->data);
     free(grid);
 }
 
-// Initialize grid with random cells (density = probability of alive cell)
 void initialize_random(Grid *grid, double density) {
     srand(42);  // Fixed seed for reproducibility
     for (int i = 0; i < grid->rows * grid->cols; i++) {
@@ -23,7 +21,6 @@ void initialize_random(Grid *grid, double density) {
     }
 }
 
-// Count live neighbors with periodic boundary conditions
 int count_neighbors(Grid *grid, int row, int col) {
     int count = 0;
     int rows = grid->rows;
@@ -42,10 +39,9 @@ int count_neighbors(Grid *grid, int row, int col) {
     return count;
 }
 
-// ORDERED evolution: cells update sequentially, changes take effect immediately
+// ORDERED evolution:
 void evolve_ordered(Grid *grid, int steps) {
     for (int step = 0; step < steps; step++) {
-        // Row-major order: (0,0), (0,1), ..., (rows-1, cols-1)
         for (int i = 0; i < grid->rows; i++) {
             for (int j = 0; j < grid->cols; j++) {
                 int neighbors = count_neighbors(grid, i, j);
@@ -62,12 +58,11 @@ void evolve_ordered(Grid *grid, int steps) {
     }
 }
 
-// STATIC evolution: all cells update simultaneously based on frozen state
+// STATIC evolution:
 void evolve_static(Grid *grid, int steps) {
     Grid *temp = create_grid(grid->rows, grid->cols);
     
     for (int step = 0; step < steps; step++) {
-        // Compute next state based on current frozen state
         for (int i = 0; i < grid->rows; i++) {
             for (int j = 0; j < grid->cols; j++) {
                 int neighbors = count_neighbors(grid, i, j);
@@ -82,7 +77,7 @@ void evolve_static(Grid *grid, int steps) {
             }
         }
         
-        // Swap grids
+        // Swap
         int *swap = grid->data;
         grid->data = temp->data;
         temp->data = swap;
@@ -118,7 +113,6 @@ void evolve_static_omp(Grid *grid, int steps) {
     free_grid(temp);
 }
 
-// Print grid (for debugging small grids)
 void print_grid(Grid *grid) {
     for (int i = 0; i < grid->rows; i++) {
         for (int j = 0; j < grid->cols; j++) {
@@ -143,7 +137,7 @@ void write_csv_result(const char *filename, const char *study, int rows, int col
     fclose(fp);
 }
 
-// Write grid to PGM image file (P2 ASCII format)
+// Write grid to PGM image file- for debugging purposea
 void write_pgm(Grid *grid, const char *filename) {
     FILE *fp = fopen(filename, "w");
     if (!fp) {
@@ -165,7 +159,6 @@ void write_pgm(Grid *grid, const char *filename) {
     fclose(fp);
 }
 
-// Read grid from PGM image file
 Grid* read_pgm(const char *filename) {
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -180,9 +173,8 @@ Grid* read_pgm(const char *filename) {
         return NULL;
     }
     
-    while (fgetc(fp) != '\n');  // skip to end of line
+    while (fgetc(fp) != '\n'); 
     
-    // Skip comments
     int c;
     while ((c = fgetc(fp)) == '#') {
         while (fgetc(fp) != '\n');

@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
                 break;
             case 'k':
                 if (sscanf(optarg, "%d,%d", &rows, &cols) == 1) {
-                    cols = rows;  // square grid
+                    cols = rows;  // we keep a square grid in all the project
                 } else if (sscanf(optarg, "%d,%d", &rows, &cols) != 2) {
                     fprintf(stderr, "Error: Invalid size format\n");
                     return 1;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
     }
     
     if (init_mode == 1) {
-        // Initialize mode
+
         if (rows == 0 || cols == 0) {
             fprintf(stderr, "Error: Size required for initialization\n");
             return 1;

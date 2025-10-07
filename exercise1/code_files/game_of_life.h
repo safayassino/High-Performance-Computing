@@ -6,20 +6,19 @@
 #include <string.h>
 #include <time.h>
 
-// Evolution modes
+
 typedef enum {
-    ORDERED,  // Sequential row-major evolution (non-parallelizable)
-    STATIC    // Simultaneous evolution (parallelizable)
+    ORDERED,  
+    STATIC    
 } EvolutionMode;
 
-// Grid structure
+
 typedef struct {
-    int *data;        // Flattened 2D array
+    int *data;        
     int rows;
     int cols;
 } Grid;
 
-// Function prototypes
 Grid* create_grid(int rows, int cols);
 void free_grid(Grid *grid);
 void initialize_random(Grid *grid, double density);
@@ -34,7 +33,7 @@ Grid* read_pgm(const char *filename);
 void write_csv_result(const char *filename, const char *study, int rows, int cols, 
                       int steps, int mode, int mpi_procs, int omp_threads, double time);
 
-// Inline accessor functions
+
 static inline int get_cell(Grid *grid, int row, int col) {
     return grid->data[row * grid->cols + col];
 }

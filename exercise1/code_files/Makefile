@@ -13,23 +13,23 @@ HEADERS = game_of_life.h
 
 all: $(TARGET_SERIAL) $(TARGET_OMP) $(TARGET_MPI) $(VALIDATE)
 
-# Serial version (no OpenMP)
+#serial version
 $(TARGET_SERIAL): main.o game_of_life_serial.o
 	$(CC) $(CFLAGS) -o $@ main.o game_of_life_serial.o $(LDFLAGS)
 
-# OpenMP version
+#OpenMP version
 $(TARGET_OMP): main_omp.o game_of_life_omp.o
 	$(CC) $(CFLAGS_OMP) -o $@ main_omp.o game_of_life_omp.o $(LDFLAGS_OMP)
 
-# MPI+OpenMP version
+#MPI+OpenMP version
 $(TARGET_MPI): main_mpi.o game_of_life_mpi.o
 	$(MPICC) $(CFLAGS_OMP) -o $@ main_mpi.o game_of_life_mpi.o $(LDFLAGS_OMP)
 
-# Validation tool
+#the validation tool
 $(VALIDATE): validate.o game_of_life_serial.o
 	$(CC) $(CFLAGS) -o $@ validate.o game_of_life_serial.o $(LDFLAGS)
 
-# Object files - serial
+
 main.o: main.c $(HEADERS)
 	$(CC) $(CFLAGS) -c main.c -o main.o
 
@@ -39,14 +39,12 @@ game_of_life_serial.o: game_of_life_serial.c $(HEADERS)
 validate.o: validate.c $(HEADERS)
 	$(CC) $(CFLAGS) -c validate.c -o validate.o
 
-# Object files - OpenMP
 main_omp.o: main_omp.c $(HEADERS)
 	$(CC) $(CFLAGS_OMP) -c main_omp.c -o main_omp.o
 
 game_of_life_omp.o: game_of_life_serial.c $(HEADERS)
 	$(CC) $(CFLAGS_OMP) -c game_of_life_serial.c -o game_of_life_omp.o
 
-# Object files - MPI
 main_mpi.o: main_mpi.c $(HEADERS)
 	$(MPICC) $(CFLAGS_OMP) -c main_mpi.c -o main_mpi.o
 
